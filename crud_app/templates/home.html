@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home Page</title>
+  </head>
+  <body>
+    <h1>This are the books in our system</h1><br>
+    <a href="{% url 'crudApp:add-book' %}">Add Book</a>
+    <table>
+      <tr>
+        <th>Book Name</th>
+        <th>Author Name</th>
+        <th>Year Published</th>
+        <th>Actions</th>
+      </tr>
+      {% for book in books %}
+      <tr>
+        <td>{{book.title}}</td>
+        <td>{{book.auther}}</td>
+        <td>{{book.year_published}}</td>
+        <td><a href="#">Update</a>, <a href="{% url 'crudApp:add-book' book.id %}">delete</a></td>
+      </tr>
+      {% endfor %}
+    </table>
+    
+  </body>
+</html>
