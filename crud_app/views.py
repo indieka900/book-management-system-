@@ -46,7 +46,7 @@ def add_book(request):
             return redirect('/')
     else:
         form = BookForm()
-    return render(request, "book.html", {'form': form})
+    return render(request, "book.html", {'form': form, 'action': "add"})
 
 def update_book(request, id):
     book = get_object_or_404(Book, pk=id)
@@ -57,7 +57,7 @@ def update_book(request, id):
             return redirect('/')
     else:
         form = BookForm(instance=book)
-    return render(request, "book.html", {'form': form})
+    return render(request, "book.html", {'form': form, 'action': "update"})
 
 
 def delete_book(request, id):

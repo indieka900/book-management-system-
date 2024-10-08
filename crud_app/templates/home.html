@@ -1,67 +1,65 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home Page</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-  </head>
-  <body>
-    <div class="container">
-      <h1 class="page-title">Books in our system</h1>
-      <div class="actions">
-        <a href="{% url 'crudApp:add-book' %}" class="btn btn-primary">Add Book</a>
-        <input type="text" id="searchInput" class="search-input" placeholder="Search books...">
-      </div>
-      <table class="book-table" id="bookTable">
-        <thead>
-          <tr>
-            <th>Book Name</th>
-            <th>Author Name</th>
-            <th>Year Published</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for book in books %}
-          <tr>
-            <td>{{book.title}}</td>
-            <td>{{book.auther}}</td>
-            <td>{{book.year_published}}</td>
-            <td>
-              <a href="{% url 'crudApp:update_book' book.id %}" class="btn btn-secondary">Update</a>
-              <a href="{% url 'crudApp:delete_book' book.id %}" class="btn btn-danger">Delete</a>
-            </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
+{% extends 'base.html' %}
 
-    <script>
-      document.getElementById('searchInput').addEventListener('keyup', function() {
-        var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("searchInput");
-        filter = input.value.toUpperCase();
-        table = document.getElementById("bookTable");
-        tr = table.getElementsByTagName("tr");
+{% block title %}
+Books
+{% endblock %}
 
-        for (i = 0; i < tr.length; i++) {
-          td = tr[i].getElementsByTagName("td");
-          for (var j = 0; j < td.length; j++) {
-            if (td[j]) {
-              txtValue = td[j].textContent || td[j].innerText;
-              if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-                break;
-              } else {
-                tr[i].style.display = "none";
-              }
-            }
+{% block page-title %}
+Books in our system
+{% endblock %}
+
+{% block content %}
+<div class="actions">
+  <a href="{% url 'crudApp:add-book' %}" class="btn btn-primary">Add Book</a>
+  <input type="text" id="searchInput" class="search-input" placeholder="Search books...">
+</div>
+<table class="book-table" id="bookTable">
+  <thead>
+    <tr>
+      <th>Book Name</th>
+      <th>Author Name</th>
+      <th>Year Published</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for book in books %}
+    <tr>
+      <td>{{book.title}}</td>
+      <td>{{book.auther}}</td>
+      <td>{{book.year_published}}</td>
+      <td>
+        <a href="{% url 'crudApp:update_book' book.id %}" class="btn btn-secondary">Update</a>
+        <a href="{% url 'crudApp:delete_book' book.id %}" class="btn btn-danger">Delete</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+
+<script>
+  document.getElementById('searchInput').addEventListener('keyup', function () {
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("searchInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("bookTable");
+    tr = table.getElementsByTagName("tr");
+
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td");
+      for (var j = 0; j < td.length; j++) {
+        if (td[j]) {
+          txtValue = td[j].textContent || td[j].innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+            break;
+          } else {
+            tr[i].style.display = "none";
           }
         }
-      });
-    </script>
-  </body>
-</html>
+      }
+    }
+  });
+</script>
+{% endblock %}
