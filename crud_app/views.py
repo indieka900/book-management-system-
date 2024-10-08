@@ -19,9 +19,7 @@ def add_book(request):
             auther = auther,
             year_published =year_published
         )
-        return redirect('/')
-            
-        
+        return redirect('/')  
     return render(request,"add_book.html")
 def update_book(request, id):
     book = get_object_or_404(Book, pk=id)
