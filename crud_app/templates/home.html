@@ -30,7 +30,7 @@ Books in our system
       <td>{{book.year_published}}</td>
       <td>
         <a href="{% url 'crudApp:update_book' book.id %}" class="btn btn-secondary">Update</a>
-        <a href="{% url 'crudApp:delete_book' book.id %}" class="btn btn-danger">Delete</a>
+        <a href="{% url 'crudApp:delete_book' book.id %}" class="btn btn-danger" onclick="return confirmDelete('{{book.title}}')">Delete</a>
       </td>
     </tr>
     {% endfor %}
@@ -38,28 +38,5 @@ Books in our system
 </table>
 </div>
 
-<script>
-  document.getElementById('searchInput').addEventListener('keyup', function () {
-    var input, filter, table, tr, td, i, txtValue;
-    input = document.getElementById("searchInput");
-    filter = input.value.toUpperCase();
-    table = document.getElementById("bookTable");
-    tr = table.getElementsByTagName("tr");
 
-    for (i = 0; i < tr.length; i++) {
-      td = tr[i].getElementsByTagName("td");
-      for (var j = 0; j < td.length; j++) {
-        if (td[j]) {
-          txtValue = td[j].textContent || td[j].innerText;
-          if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            tr[i].style.display = "";
-            break;
-          } else {
-            tr[i].style.display = "none";
-          }
-        }
-      }
-    }
-  });
-</script>
 {% endblock %}

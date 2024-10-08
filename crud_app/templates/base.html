@@ -5,14 +5,42 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title %}{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
   </head>
   <body>
     <div class="container">
       <h1 class="page-title">{% block page-title %}{% endblock %}</h1>
-      {% block content %}
-        
-      {% endblock %}
+      {% block content %} {% endblock %}
     </div>
+    <script>
+      document
+        .getElementById("searchInput")
+        .addEventListener("keyup", function () {
+          var input, filter, table, tr, td, i, txtValue;
+          input = document.getElementById("searchInput");
+          filter = input.value.toUpperCase();
+          table = document.getElementById("bookTable");
+          tr = table.getElementsByTagName("tr");
+
+          for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td");
+            for (var j = 0; j < td.length; j++) {
+              if (td[j]) {
+                txtValue = td[j].textContent || td[j].innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                  tr[i].style.display = "";
+                  break;
+                } else {
+                  tr[i].style.display = "none";
+                }
+              }
+            }
+          }
+        });
+    function confirmDelete(bookTitle) {
+        return confirm(`Are you sure you want to delete the book "${bookTitle}"?`);
+    }
+    </script>
+    
   </body>
 </html>
