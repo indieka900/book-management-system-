@@ -5,7 +5,7 @@ Books
 {% endblock %}
 
 {% block page-title %}
-Books in our system
+Books in our system ({{books|length}})
 {% endblock %}
 
 {% block content %}
@@ -16,6 +16,7 @@ Books in our system
 <table class="book-table" id="bookTable">
   <thead>
     <tr>
+      <th>No.</th>
       <th>Book Name</th>
       <th>Author Name</th>
       <th>Year Published</th>
@@ -25,6 +26,7 @@ Books in our system
   <tbody>
     {% for book in books %}
     <tr>
+      <td>{{forloop.counter}}</td>
       <td>{{book.title}}</td>
       <td>{{book.auther}}</td>
       <td>{{book.year_published}}</td>
