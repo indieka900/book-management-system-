@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.shortcuts import get_object_or_404, render, redirect
 from crud_app.forms import BookForm
 from crud_app.models import Book
@@ -23,7 +24,7 @@ def generate_dummy_books():
             title=book_data['title'],
             auther=book_data['author'],  # Note: 'auther' is misspelled as in your original code
             year_published=book_data['year_published'],
-            # date_created=timezone.now()
+            createdAt = datetime.now()
         )
         book.save()
         print(f"Created book: {book.title}")
@@ -32,6 +33,7 @@ def generate_dummy_books():
 
 def home(request):
     books =Book.objects.all()
+    # generate_dummy_books()
     context = {
         "books" : books,
     }
